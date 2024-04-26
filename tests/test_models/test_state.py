@@ -6,7 +6,7 @@ from models.state import State
 class TestState(unittest.TestCase):
     def test_initialization(self):
         state = State()
-        self.assertEqual(state.name, "")
+        self.assertEqual(state.name, None)
 
     def test_set_name(self):
         state = State()
