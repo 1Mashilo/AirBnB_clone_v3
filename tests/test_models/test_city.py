@@ -18,8 +18,8 @@ class TestCity(unittest.TestCase):
         Tests that a newly created City instance has default attribute values.
         """
         city = City()
-        self.assertEqual(city.state_id, "")
-        self.assertEqual(city.name, "")
+        self.assertEqual(city.state_id, None)
+        self.assertEqual(city.name, None)
 
 
     def test_set_attributes(self):
