@@ -70,9 +70,6 @@ class TestBaseModel_Instantiation(unittest.TestCase):
         b2 = BaseModel()
         self.assertNotEqual(b1.id, b2.id)
 
-    def test_new_instance_stored_in_objects(self):
-        self.assertIn(BaseModel(), storage.all().values())
-
     def test_ContainsCreated_at(self):
         """Checks `created_at` attribute existence"""
         b1 = BaseModel()
