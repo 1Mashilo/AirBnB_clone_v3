@@ -1,26 +1,33 @@
 #!/usr/bin/python3
-""" Index """
-
-from models import storage
+"""index.py to connect to API"""
 from api.v1.views import app_views
-from flask import jsonify
+from flask import Flask, Blueprint, jsonify
+from models import storage
 
 
-@app_views.route('/status', methods=['GET'])
-def status():
-    """Route to return the status of the API"""
+hbnbText = {
+    "amenities": "Amenity",
+    "cities": "City",
+    "places": "Place",
+    "reviews": "Review",
+    "states": "State",
+    "users": "User"
+}
+
+
+@app_views.route('/status', strict_slashes=False)
+def hbnbStatus():
+    """hbnbStatus"""
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/api/v1/stats', methods=['GET'])
-def number_objects():
-    """ Retrieves the number of each objects by type """
-    classes = [Amenity, City, Place, Review, State, User]
-    names = ["amenities", "cities", "places", "reviews", "states", "users"]
+@app_views.route('/stats', strict_slashes=False)
+def hbnbStats():
+    """hbnbStats"""
+    return_dict = {}
+    for key, value in hbnbText.items():
+        return_dict[key] = storage.count(value)
+    return jsonify(return_dict)
 
-    num_objects = {}
-    for i, cls in enumerate(classes):
-        count = storage.count(cls)
-        num_objects[names[i]] = count
-
-    return jsonify(num_objects)
+if __name__ == "__main__":
+    pass
