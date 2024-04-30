@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
-# api/v1/app.py
+"""
+This module initializes the Flask application for the API.
+"""
+
 from flask import Flask
 from models import storage
 from api.v1.views import app_views
@@ -14,6 +17,9 @@ app.register_blueprint(app_views)
 # Teardown method
 @app.teardown_appcontext
 def teardown(exception):
+    """
+    Teardown method to close the database connection.
+    """
     storage.close()
 
 if __name__ == "__main__":
