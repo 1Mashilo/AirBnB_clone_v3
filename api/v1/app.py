@@ -4,14 +4,13 @@
 This module initializes the Flask application for the API.
 """
 
-from flask import Flask
+from flask import Flask, jsonify
+from werkzeug.exceptions import NotFound
 from models import storage
 from api.v1.views import app_views
 import os
 
 app = Flask(__name__)
-
-# Register blueprint
 app.register_blueprint(app_views)
 
 # Teardown method
@@ -21,6 +20,14 @@ def teardown(exception):
     Teardown method to close the database connection.
     """
     storage.close()
+
+# Handler for 404 errors
+@app.errorhandler(NotFound)
+def page_not_found(e):
+    """
+    Handler for 404 errors that returns a JSON-formatted response.
+    """
+    return jsonify({"error": "Not found"}), 404
 
 if __name__ == "__main__":
     host = os.getenv('HBNB_API_HOST', '0.0.0.0')
