@@ -1,13 +1,12 @@
 #!/usr/bin/python3
-
 """
 This module initializes the Flask application for the API.
 """
-
 from flask import Flask, jsonify
 from werkzeug.exceptions import NotFound
 from models import storage
 from api.v1.views import app_views
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
